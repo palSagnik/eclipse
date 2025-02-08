@@ -6,6 +6,7 @@ import (
 
 	"github.com/docker/docker/api/types/image"
 	"github.com/palsagnik2102/eclipse/pkg/docker"
+	"github.com/palsagnik2102/eclipse/pkg/tui"
 )
 
 func main() {
@@ -19,8 +20,8 @@ func main() {
 		fmt.Printf("unable to get images: %s\n", err)
 	}
 
-	fmt.Println("Image Details")
-	for _, img := range images {
-		fmt.Printf("Name: %v \nImage ID: %s \nCreated: %d \n", img.Name, img.ID, img.Created)
+	app := tui.NewApp()
+	if err := app.ListImage(images...); err != nil {
+		fmt.Println(err)
 	}
 }
